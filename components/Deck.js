@@ -146,7 +146,7 @@ const Deck = ({
     return renderNoCards();
   }
 
-  return <View>{renderCards}</View>;
+  return <View style={{ top: 40 }}>{renderCards}</View>;
 };
 
 const styles = StyleSheet.create({

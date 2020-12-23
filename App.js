@@ -64,8 +64,7 @@ export default function App() {
   };
 
   return (
-    <SafeAreaView>
-      {/* <Banner images={Rewind} /> */}
+    <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.cardContainer}>
         <Deck
           data={userData}
@@ -114,5 +113,6 @@ const styles = StyleSheet.create({
   },
   cardContainer: {
     height: Dimensions.get("window").height * 0.7,
+    zIndex: 1
   },
 });

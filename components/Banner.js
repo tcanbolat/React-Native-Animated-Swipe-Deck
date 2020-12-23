@@ -12,8 +12,8 @@ const Banner = ({ images }) => {
 
 const styles = StyleSheet.create({
   container: {
+    top: 50,
     flexDirection: "row",
-    padding: 10,
     alignItems: "center",
     justifyContent: "space-between",
     padding: 25,

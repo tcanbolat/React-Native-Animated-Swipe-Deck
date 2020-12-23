@@ -29,22 +29,36 @@ const AnimatedButton = ({ index, values }) => {
   };
 
   return (
-    <Animated.View key={index} style={(styles.item, animatedStyle)}>
-      <TouchableWithoutFeedback
-        onPressIn={handleOnPress}
-        onPressOut={handlePressOut}
-      >
-        <Image source={values} />
-      </TouchableWithoutFeedback>
-    </Animated.View>
+    <TouchableWithoutFeedback
+      onPressIn={handleOnPress}
+      onPressOut={handlePressOut}
+    >
+      <Animated.View key={index} style={[styles.item, animatedStyle]}>
+        <Image style={styles.image} source={values} />
+      </Animated.View>
+    </TouchableWithoutFeedback>
   );
 };
 
 const styles = StyleSheet.create({
   item: {
+    justifyContent: "center",
+    alignItems: "center",
     margin: 5,
-    width: 30,
-    height: 30,
+    width: 50,
+    height: 50,
+    borderWidth: 4,
+    borderColor: "white",
+    backgroundColor: "white",
+    borderRadius: 50,
+    shadowOffset: { width: -1, height: 1 },
+    shadowOpacity: 0.3,
+    elevation: 3,
+  },
+  image: {
+    width: 15,
+    height: 15,
+    padding: 10,
   },
 });
 
