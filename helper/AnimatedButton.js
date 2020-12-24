@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     shadowOffset: { width: -1, height: 1 },
     shadowOpacity: 0.3,
-    elevation: 3,
+    elevation: 3, // for android so that shadows appear
   },
   image: {
     width: 15,

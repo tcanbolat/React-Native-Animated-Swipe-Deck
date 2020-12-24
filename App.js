@@ -13,17 +13,20 @@ import Like from "./assets/icons/Tinder-Like.png";
 import Boost from "./assets/icons/Tinder-Boost.png";
 
 export default function App() {
-  const [userData, setUserData] = useState();
+  const [userData, setUserData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [imageData, setImageData] = useState([]);
+  const [isError, setError] = useState(false);
 
   const getUserData = async () => {
     setIsLoading(true);
+    setError(false);
     try {
       const response = await fetch("https://randomuser.me/api/?results=8");
       const resData = await response.json();
       setUserData(resData.results);
     } catch (err) {
+      setError(true);
       console.log("ERROR! COULD NOT FETCH USER DATA! ", err);
     }
     setIsLoading(false);
@@ -63,22 +66,35 @@ export default function App() {
     );
   };
 
+  const renderError = (
+    <View style={styles.errorContainer}>
+      <Text style={{ fontSize: 35, padding: 15 }}>Error Fetching Users!</Text>
+      <Button title="Try again" onPress={getUserData} />
+    </View>
+  );
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <View style={styles.cardContainer}>
-        <Deck
-          data={userData}
-          loading={isLoading}
-          renderCard={renderCard}
-          onSwipeRight={() => {
-            console.log("SWIPED RIGHT>>>>");
-          }}
-          onSwipeLeft={() => {
-            console.log("SWIPED LEFT<<<<");
-          }}
-          renderNoCards={renderNoCards}
-        />
-      </View>
+      {isError ? (
+        renderError
+      ) : (
+        <View style={styles.cardContainer}>
+          <Deck
+            isError={isError}
+            renderError={renderError}
+            data={userData}
+            loading={isLoading}
+            renderCard={renderCard}
+            onSwipeRight={() => {
+              console.log("SWIPED RIGHT>>>>");
+            }}
+            onSwipeLeft={() => {
+              console.log("SWIPED LEFT<<<<");
+            }}
+            renderNoCards={renderNoCards}
+          />
+        </View>
+      )}
       <Banner images={imageData} />
     </SafeAreaView>
   );
@@ -113,6 +129,11 @@ const styles = StyleSheet.create({
   },
   cardContainer: {
     height: Dimensions.get("window").height * 0.7,
-    zIndex: 1
+    zIndex: 1,
+  },
+  errorContainer: {
+    flex: 0.9,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

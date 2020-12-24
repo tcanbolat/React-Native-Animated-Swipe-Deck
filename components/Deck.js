@@ -24,6 +24,7 @@ const Deck = ({
 }) => {
   const position = new Animated.ValueXY();
   const [currentIndex, setCurrentIndex] = useState(0);
+
   useEffect(() => {
     setCurrentIndex(0);
   }, [loading]);
