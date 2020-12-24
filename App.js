@@ -2,8 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
 import { ImageBackground } from "react-native";
 import { Dimensions } from "react-native";
-import { SafeAreaView, StyleSheet, Text, View, Image } from "react-native";
-import { Card, Button } from "react-native-elements";
+import { SafeAreaView, StyleSheet, Text, View, Button } from "react-native";
 import Banner from "./components/Banner";
 import Deck from "./components/Deck";
 import Rewind from "./assets/icons/Tinder-Rewind.png";
@@ -11,22 +10,23 @@ import Nope from "./assets/icons/Tinder-Nope.png";
 import SuperLike from "./assets/icons/Tinder-Super-Like.png";
 import Like from "./assets/icons/Tinder-Like.png";
 import Boost from "./assets/icons/Tinder-Boost.png";
+import ScrollComp from "./components/test";
 
 export default function App() {
   const [userData, setUserData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [imageData, setImageData] = useState([]);
-  const [isError, setError] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   const getUserData = async () => {
     setIsLoading(true);
-    setError(false);
+    setIsError(false);
     try {
       const response = await fetch("https://randomuser.me/api/?results=8");
       const resData = await response.json();
       setUserData(resData.results);
     } catch (err) {
-      setError(true);
+      setIsError(true);
       console.log("ERROR! COULD NOT FETCH USER DATA! ", err);
     }
     setIsLoading(false);
@@ -54,20 +54,24 @@ export default function App() {
 
   const renderNoCards = () => {
     return (
-      <Card>
-        <Card.Title>ALL DONE</Card.Title>
-        <Text style={styles.cardText}>No more cards left.</Text>
+      <View style={styles.container}>
+        <Text style={[styles.cardText, { position: "relative" }]}>
+          ALL DONE!
+        </Text>
+        <Text style={[styles.cardText, { position: "relative" }]}>
+          No more cards left.
+        </Text>
         <Button
           title="GET MORE"
           backgroundColor="#03a9f4"
           onPress={getUserData}
         />
-      </Card>
+      </View>
     );
   };
 
   const renderError = (
-    <View style={styles.errorContainer}>
+    <View style={styles.container}>
       <Text style={{ fontSize: 35, padding: 15 }}>Error Fetching Users!</Text>
       <Button title="Try again" onPress={getUserData} />
     </View>
@@ -78,22 +82,23 @@ export default function App() {
       {isError ? (
         renderError
       ) : (
-        <View style={styles.cardContainer}>
-          <Deck
-            isError={isError}
-            renderError={renderError}
-            data={userData}
-            loading={isLoading}
-            renderCard={renderCard}
-            onSwipeRight={() => {
-              console.log("SWIPED RIGHT>>>>");
-            }}
-            onSwipeLeft={() => {
-              console.log("SWIPED LEFT<<<<");
-            }}
-            renderNoCards={renderNoCards}
-          />
-        </View>
+        <ScrollComp />
+        // <View style={styles.cardContainer}>
+        //   <Deck
+        //     isError={isError}
+        //     renderError={renderError}
+        //     data={userData}
+        //     loading={isLoading}
+        //     renderCard={renderCard}
+        //     onSwipeRight={() => {
+        //       console.log("SWIPED RIGHT>>>>");
+        //     }}
+        //     onSwipeLeft={() => {
+        //       console.log("SWIPED LEFT<<<<");
+        //     }}
+        //     renderNoCards={renderNoCards}
+        //   />
+        // </View>
       )}
       <Banner images={imageData} />
     </SafeAreaView>
@@ -131,7 +136,7 @@ const styles = StyleSheet.create({
     height: Dimensions.get("window").height * 0.7,
     zIndex: 1,
   },
-  errorContainer: {
+  container: {
     flex: 0.9,
     alignItems: "center",
     justifyContent: "center",

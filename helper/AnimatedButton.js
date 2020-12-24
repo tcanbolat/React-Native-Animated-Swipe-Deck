@@ -5,6 +5,7 @@ import {
   Animated,
   StyleSheet,
 } from "react-native";
+import * as Haptics from "expo-haptics";
 
 const AnimatedButton = ({ index, values }) => {
   const buttonSpring = useRef(new Animated.Value(1)).current;
@@ -14,6 +15,7 @@ const AnimatedButton = ({ index, values }) => {
   };
 
   const handleOnPress = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     return Animated.spring(buttonSpring, {
       toValue: 0.5,
       useNativeDriver: true,
@@ -21,6 +23,7 @@ const AnimatedButton = ({ index, values }) => {
   };
 
   const handlePressOut = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     return Animated.spring(buttonSpring, {
       toValue: 1,
       friction: 5,

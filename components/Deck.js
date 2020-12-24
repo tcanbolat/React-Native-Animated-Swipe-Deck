@@ -6,13 +6,13 @@ import {
   PanResponder,
   Dimensions,
   Text,
-  LayoutAnimation,
-  UIManager,
+  Button,
 } from "react-native";
+import * as Haptics from "expo-haptics";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
 const SWIPE_THRESHOLD = 0.45 * SCREEN_WIDTH;
-const SWIPE_OUT_DURATION = 120;
+const SWIPE_OUT_DURATION = 150;
 
 const Deck = ({
   data,
@@ -46,6 +46,7 @@ const Deck = ({
   });
 
   const forceSwipe = (direction) => {
+    // Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     Animated.timing(position, {
       toValue: {
         x: direction === "right" ? SCREEN_WIDTH : -SCREEN_WIDTH,
@@ -59,6 +60,7 @@ const Deck = ({
   };
 
   const onSwipeComplete = (direction) => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     const item = data[currentIndex];
     direction === "right" ? onSwipeRight(item) : onSwipeLeft(item);
     position.setValue({ x: 0, y: 0 });
@@ -147,7 +149,17 @@ const Deck = ({
     return renderNoCards();
   }
 
-  return <View style={{ top: 40 }}>{renderCards}</View>;
+  return (
+    <View style={{ top: 40 }}>
+      {renderCards}
+      <Button
+        onPress={() => {
+          forceSwipe("right");
+        }}
+        title="LIKE"
+      />
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
