@@ -1,50 +1,55 @@
 import Dog from "../models/Dog";
 
-const dogData = [
-  new Dog("1", "Shetland", [
-    "https://images.dog.ceo/breeds/sheepdog-shetland/n02105855_14126.jpg",
-    "https://images.dog.ceo/breeds/sheepdog-shetland/n02105855_14653.jpg",
-    "https://images.dog.ceo/breeds/sheepdog-shetland/n02105855_15506.jpg",
+const DATA = [
+  new Dog("1", "New Foundland", [
+    "https://images.dog.ceo/breeds/newfoundland/n02111277_1008.jpg",
+    "https://images.dog.ceo/breeds/newfoundland/n02111277_10578.jpg",
+    "https://images.dog.ceo/breeds/newfoundland/n02111277_1288.jpg",
+    "https://images.dog.ceo/breeds/newfoundland/n02111277_1818.jpg",
   ]),
-  new Dog("2", "Blood Hound", [
-    "https://images.dog.ceo/breeds/hound-blood/n02088466_10506.jpg",
-    "https://images.dog.ceo/breeds/hound-blood/n02088466_11398.jpg",
-    "https://images.dog.ceo/breeds/hound-blood/n02088466_1473.jpg",
-    "https://images.dog.ceo/breeds/hound-blood/n02088466_1563.jpg",
-    "https://images.dog.ceo/breeds/hound-blood/n02088466_10545.jpg",
+  new Dog("2", "Basenji", [
+    "https://images.dog.ceo/breeds/basenji/n02110806_1382.jpg",
+    "https://images.dog.ceo/breeds/basenji/n02110806_1396.jpg",
+    "https://images.dog.ceo/breeds/basenji/n02110806_1916.jpg",
+    "https://images.dog.ceo/breeds/basenji/n02110806_2716.jpg",
+    "https://images.dog.ceo/breeds/basenji/n02110806_2774.jpg",
+    "https://images.dog.ceo/breeds/basenji/n02110806_3827.jpg",
   ]),
-  new Dog("3", "Irish Spaniel", [
-    "https://images.dog.ceo/breeds/spaniel-irish/n02102973_1714.jpg",
-    "https://images.dog.ceo/breeds/spaniel-irish/n02102973_1822.jpg",
-    "https://images.dog.ceo/breeds/spaniel-irish/n02102973_2153.jpg",
-    "https://images.dog.ceo/breeds/spaniel-irish/n02102973_2453.jpg",
-    "https://images.dog.ceo/breeds/spaniel-irish/n02102973_2595.jpg",
-    "https://images.dog.ceo/breeds/spaniel-irish/n02102973_3326.jpg",
+  new Dog("3", "French Bulldog", [
+    "https://images.dog.ceo/breeds/bulldog-french/IMG_1657.jpg",
+    "https://images.dog.ceo/breeds/bulldog-french/n02108915_12460.jpg",
   ]),
-  new Dog("4", "Malamute", [
-    "https://images.dog.ceo/breeds/malamute/n02110063_11034.jpg",
-    "https://images.dog.ceo/breeds/malamute/n02110063_17138.jpg",
-    "https://images.dog.ceo/breeds/malamute/n02110063_19390.jpg",
-    "https://images.dog.ceo/breeds/malamute/n02110063_17533.jpg",
+  new Dog("4", "Coon Hound", [
+    "https://images.dog.ceo/breeds/coonhound/n02089078_2021.jpg",
+    "https://images.dog.ceo/breeds/coonhound/n02089078_2294.jpg",
+    "https://images.dog.ceo/breeds/coonhound/n02089078_2498.jpg",
+    "https://images.dog.ceo/breeds/coonhound/n02089078_3355.jpg",
   ]),
-  new Dog("5", "Labrador", [
-    "https://images.dog.ceo/breeds/labrador/n02099712_2938.jpg",
-    "https://images.dog.ceo/breeds/labrador/n02099712_3364.jpg",
+  new Dog("5", "German Shepard", [
+    "https://images.dog.ceo/breeds/germanshepherd/n02106662_11620.jpg",
+    "https://images.dog.ceo/breeds/germanshepherd/n02106662_12906.jpg",
+    "https://images.dog.ceo/breeds/germanshepherd/n02106662_13912.jpg",
   ]),
-  new Dog("6", "beagle", [
-    "https://images.dog.ceo/breeds/malamute/n02110063_17548.jpg",
+  new Dog("6", "Poodle", [
+    "https://images.dog.ceo/breeds/poodle-standard/n02113799_1728.jpg",
+    "https://images.dog.ceo/breeds/poodle-standard/n02113799_2466.jpg",
+    "https://images.dog.ceo/breeds/poodle-standard/n02113799_2504.jpg",
+    "https://images.dog.ceo/breeds/poodle-standard/n02113799_2765.jpg",
+    "https://images.dog.ceo/breeds/poodle-standard/n02113799_2814.jpg",
   ]),
-  new Dog("7", "Pug", [
-    "https://images.dog.ceo/breeds/pug/n02110958_11977.jpg",
-    "https://images.dog.ceo/breeds/pug/n02110958_12807.jpg",
-    "https://images.dog.ceo/breeds/pug/n02110958_13002.jpg",
+  new Dog("7", "Pomeranian", [
+    "https://images.dog.ceo/breeds/pomeranian/n02112018_10243.jpg",
+    "https://images.dog.ceo/breeds/pomeranian/n02112018_11233.jpg",
+    "https://images.dog.ceo/breeds/pomeranian/n02112018_1146.jpg",
   ]),
-  new Dog("8", "newfoundland", [
-    "https://images.dog.ceo/breeds/newfoundland/n02111277_12042.jpg",
-    "https://images.dog.ceo/breeds/newfoundland/n02111277_14601.jpg",
-    "https://images.dog.ceo/breeds/newfoundland/n02111277_2255.jpg",
-    "https://images.dog.ceo/breeds/newfoundland/n02111277_2769.jpg",
+  new Dog("8", "EntleBucher", [
+    "https://images.dog.ceo/breeds/entlebucher/n02108000_1011.jpg",
+    "https://images.dog.ceo/breeds/entlebucher/n02108000_1246.jpg",
+    "https://images.dog.ceo/breeds/entlebucher/n02108000_1291.jpg",
+    "https://images.dog.ceo/breeds/entlebucher/n02108000_1339.jpg",
+    "https://images.dog.ceo/breeds/entlebucher/n02108000_1512.jpg",
+    "https://images.dog.ceo/breeds/entlebucher/n02108000_1533.jpg",
   ]),
 ];
 
-export default dogData;
+export default DATA;

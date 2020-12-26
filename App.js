@@ -1,144 +1,62 @@
-import { StatusBar } from "expo-status-bar";
-import React, { useEffect, useState } from "react";
-import { ImageBackground } from "react-native";
-import { Dimensions } from "react-native";
-import { SafeAreaView, StyleSheet, Text, View, Button } from "react-native";
-import Banner from "./components/Banner";
-import Deck from "./components/Deck";
-import Rewind from "./assets/icons/Tinder-Rewind.png";
-import Nope from "./assets/icons/Tinder-Nope.png";
-import SuperLike from "./assets/icons/Tinder-Super-Like.png";
-import Like from "./assets/icons/Tinder-Like.png";
-import Boost from "./assets/icons/Tinder-Boost.png";
-import ScrollComp from "./components/test";
+import React, { useState, useEffect } from "react";
+import { StatusBar, StyleSheet, View, SafeAreaView } from "react-native";
+import AnimatedDeck from "./components/Deck/AnimatedDeck";
+import HelperView from "./components/HelperView";
+import DATA from "./data/dummy-data";
 
-export default function App() {
-  const [userData, setUserData] = useState([]);
+const App = () => {
+  const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [imageData, setImageData] = useState([]);
   const [isError, setIsError] = useState(false);
 
-  const getUserData = async () => {
-    setIsLoading(true);
+  const reloadData = () => {
     setIsError(false);
-    try {
-      const response = await fetch("https://randomuser.me/api/?results=8");
-      const resData = await response.json();
-      setUserData(resData.results);
-    } catch (err) {
-      setIsError(true);
-      console.log("ERROR! COULD NOT FETCH USER DATA! ", err);
-    }
-    setIsLoading(false);
+    setData(DATA);
   };
 
   useEffect(() => {
-    setImageData([Rewind, Nope, SuperLike, Like, Boost]);
-    getUserData();
+    setData(DATA);
+    setIsLoading(false);
   }, []);
 
-  const renderCard = (item) => {
-    return (
-      <View style={styles.card}>
-        <ImageBackground
-          style={styles.backgroundImage}
-          source={{ uri: item.picture.large }}
-        >
-          <Text style={styles.cardText}>
-            {item.name.first + " " + item.dob.age}
-          </Text>
-        </ImageBackground>
-      </View>
-    );
-  };
-
-  const renderNoCards = () => {
-    return (
-      <View style={styles.container}>
-        <Text style={[styles.cardText, { position: "relative" }]}>
-          ALL DONE!
-        </Text>
-        <Text style={[styles.cardText, { position: "relative" }]}>
-          No more cards left.
-        </Text>
-        <Button
-          title="GET MORE"
-          backgroundColor="#03a9f4"
-          onPress={getUserData}
-        />
-      </View>
-    );
-  };
-
-  const renderError = (
-    <View style={styles.container}>
-      <Text style={{ fontSize: 35, padding: 15 }}>Error Fetching Users!</Text>
-      <Button title="Try again" onPress={getUserData} />
-    </View>
-  );
-
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={styles.appContainer}>
+      <StatusBar hidden />
       {isError ? (
-        renderError
+        <HelperView
+          title="Error Fetching Data!"
+          button="Try Again"
+          onPress={reloadData}
+        />
       ) : (
-        <ScrollComp />
-        // <View style={styles.cardContainer}>
-        //   <Deck
-        //     isError={isError}
-        //     renderError={renderError}
-        //     data={userData}
-        //     loading={isLoading}
-        //     renderCard={renderCard}
-        //     onSwipeRight={() => {
-        //       console.log("SWIPED RIGHT>>>>");
-        //     }}
-        //     onSwipeLeft={() => {
-        //       console.log("SWIPED LEFT<<<<");
-        //     }}
-        //     renderNoCards={renderNoCards}
-        //   />
-        // </View>
+        <React.Fragment>
+          <View style={styles.header}></View>
+          <View style={styles.body}>
+            <AnimatedDeck dogData={data} loading={isLoading} />
+          </View>
+          <View style={styles.footer}></View>
+        </React.Fragment>
       )}
-      <Banner images={imageData} />
     </SafeAreaView>
   );
-}
+};
+
+export default App;
 
 const styles = StyleSheet.create({
-  backgroundImage: {
+  appContainer: {
     flex: 1,
-    overflow: "hidden",
-    borderRadius: 15,
   },
-  cardText: {
-    color: "white",
-    fontWeight: "bold",
-    fontSize: 25,
-    position: "absolute",
-    bottom: 15,
-    left: 10,
-    textShadowColor: "rgba(0, 0, 0, 0.75)",
-    textShadowOffset: { width: -1, height: 1 },
-    textShadowRadius: 5,
+  header: {
+    flex: 1,
+    borderWidth: 4,
+    borderColor: "orange",
   },
-  card: {
-    alignSelf: "center",
-    borderRadius: 15,
-    width: Dimensions.get("window").width * 0.9,
-    height: Dimensions.get("window").height * 0.7,
-    shadowColor: "rgba(0, 0, 0, 0.75)",
-    shadowOffset: { width: -1, height: 1 },
-    shadowRadius: 5,
-    shadowOpacity: 0.3,
-  },
-  cardContainer: {
-    height: Dimensions.get("window").height * 0.7,
-    zIndex: 1,
-  },
-  container: {
-    flex: 0.9,
-    alignItems: "center",
-    justifyContent: "center",
+  body: { flex: 6 },
+  footer: {
+    flex: 1,
+    borderWidth: 4,
+    borderColor: "blue",
+    zIndex: -1,
   },
 });

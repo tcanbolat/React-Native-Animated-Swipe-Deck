@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "first-app",
-    "slug": "first-app",
+    "name": "animated-swipe-deck",
+    "slug": "animated-swipe-deck",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
