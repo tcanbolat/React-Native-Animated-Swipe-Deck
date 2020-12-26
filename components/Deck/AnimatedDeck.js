@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   PanResponder,
   StyleSheet,
@@ -86,25 +86,27 @@ const AnimatedDeck = ({ loading, dogData }) => {
     return <HelperView title="Loading" />;
   }
 
-  const topCard = (item) => (
-    <Animated.View
-      style={[
-        styles.deck,
-        {
-          ...position.getLayout(),
-          transform: [{ rotate: rotate }],
-        },
-        { elevation: 7 },
-      ]}
-      key={Platform.OS === "android" ? item.id : null}
-      {...panResponder.panHandlers}
-    >
-      <AnimatedOverlay text="NOPE" position="right" animation={position} />
-      <AnimatedOverlay text="LIKE" position="left" animation={position} />
-      <Text style={styles.cardTitle}>{item.breed}</Text>
-      <AnimatedScrollView imageData={item.images} />
-    </Animated.View>
-  );
+  const topCard = (item) => {
+    return (
+      <Animated.View
+        style={[
+          styles.deck,
+          {
+            ...position.getLayout(),
+            transform: [{ rotate: rotate }],
+          },
+          { elevation: 7 },
+        ]}
+        key={Platform.OS === "android" ? item.id : null}
+        {...panResponder.panHandlers}
+      >
+        <AnimatedOverlay text="NOPE" position="right" animation={position} />
+        <AnimatedOverlay text="LIKE" position="left" animation={position} />
+        <Text style={styles.cardTitle}>{item.breed}</Text>
+        <AnimatedScrollView imageData={item.images} />
+      </Animated.View>
+    );
+  };
 
   const cardStack = (item, index) => (
     <Animated.View
@@ -115,7 +117,7 @@ const AnimatedDeck = ({ loading, dogData }) => {
           transform: [{ scale: scaleIn }],
           opacity: opacity,
         },
-        index === currentIndex + 1 ? { elevation: 7 } : null,
+        index === currentIndex + 1 ? { elevation: 7 } : { display: "none" },
         Platform.OS === "android" ? { position: "absolute" } : null,
       ]}
     >
@@ -141,7 +143,9 @@ const AnimatedDeck = ({ loading, dogData }) => {
       ) : (
         <View
           style={[
-            index === currentIndex + 1 ? styles.deckShadow : { opacity: 0 },
+            index === currentIndex + 1
+              ? styles.deckShadow
+              : { display: "none" },
             { position: "absolute", height: "100%", width: "100%" },
           ]}
           key={item.id}

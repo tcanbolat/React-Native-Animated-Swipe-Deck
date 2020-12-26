@@ -2,10 +2,10 @@ import Dog from "../models/Dog";
 
 const DATA = [
   new Dog("1", "New Foundland", [
-    "https://images.dog.ceo/breeds/newfoundland/n02111277_1008.jpg",
+    "https://images.dog.ceo/breeds/newfoundland/n02111277_7697.jpg",
     "https://images.dog.ceo/breeds/newfoundland/n02111277_10578.jpg",
-    "https://images.dog.ceo/breeds/newfoundland/n02111277_1288.jpg",
-    "https://images.dog.ceo/breeds/newfoundland/n02111277_1818.jpg",
+    "https://images.dog.ceo/breeds/newfoundland/n02111277_6353.jpg",
+    "https://images.dog.ceo/breeds/newfoundland/n02111277_6229.jpg",
   ]),
   new Dog("2", "Basenji", [
     "https://images.dog.ceo/breeds/basenji/n02110806_1382.jpg",
