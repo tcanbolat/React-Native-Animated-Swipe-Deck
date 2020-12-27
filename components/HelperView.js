@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, View, Button, Text } from "react-native";
 
-const ErrorView = ({ onPress, title, button }) => {
+const HelperView = ({ onPress, title, button }) => {
   return (
     <View style={styles.helperView}>
       <Text style={styles.text}>{title}</Text>
@@ -17,7 +17,7 @@ const ErrorView = ({ onPress, title, button }) => {
   );
 };
 
-export default ErrorView;
+export default HelperView;
 
 const styles = StyleSheet.create({
   helperView: {
