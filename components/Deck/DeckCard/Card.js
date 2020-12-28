@@ -1,18 +1,17 @@
 import React from "react";
 import { Animated, Platform, StyleSheet, Text, View } from "react-native";
-import AnimatedOverlay from "../AnimatedOverlay";
+import AnimatedOverlay from "./AnimatedOverlay";
 import AnimatedScrollView from "../../ScrollView/AnimatedScrollView";
 
 const Card = ({
   item,
   topCard,
-  gestureHandler,
+  gestureStateHandler,
   rotate,
   scaleIn,
   opacity,
   position,
 }) => {
-
   const cardStyle = [
     styles.card,
     topCard
@@ -36,7 +35,7 @@ const Card = ({
       <Animated.View
         style={cardStyle}
         key={Platform.OS === "android" ? item.id : null}
-        {...(topCard && gestureHandler)}
+        {...(topCard && gestureStateHandler)}
       >
         {topCard && (
           <>

@@ -6,7 +6,6 @@ import {
   ImageBackground,
   Animated,
   Dimensions,
-  ActivityIndicator,
 } from "react-native";
 import * as Haptics from "expo-haptics";
 import AnimatedIndicator from "./AnimatedIndicator";
@@ -16,7 +15,6 @@ const { width } = Dimensions.get("window");
 
 const AnimatedScrollView = ({ imageData }) => {
   const [scrollCount, setScrollCount] = useState(null);
-  const [imageLoading, setImageLoading] = useState(true);
   const scrollX = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -55,7 +53,6 @@ const AnimatedScrollView = ({ imageData }) => {
 
   return (
     <View style={styles.scrollViewContainer}>
-      {/* {imageLoading && <View style={styles.imageLoadingOverlay} />} */}
       <ScrollButtonOverlay scrollHandler={handleScroll} />
       <ScrollView
         scrollEnabled={false}
@@ -68,12 +65,11 @@ const AnimatedScrollView = ({ imageData }) => {
       >
         {imageData.map((image, imageIndex) => {
           return (
-              <ImageBackground
-                onLoadEnd={() => setImageLoading(false)}
-                key={imageIndex}
-                source={{ uri: image }}
-                style={styles.imageStyle}
-              />
+            <ImageBackground
+              key={imageIndex}
+              source={{ uri: image }}
+              style={styles.imageStyle}
+            />
           );
         })}
       </ScrollView>

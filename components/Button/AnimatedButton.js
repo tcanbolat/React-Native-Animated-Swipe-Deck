@@ -4,18 +4,25 @@ import {
   Image,
   Animated,
   StyleSheet,
+  View,
 } from "react-native";
 import * as Haptics from "expo-haptics";
+import Nope from "../Button/SVGComponents/Nope";
+import Star from "./SVGComponents/Star";
 
-const AnimatedButton = ({ index, values }) => {
+const AnimatedButton = ({ index, children }) => {
   const buttonSpring = useRef(new Animated.Value(1)).current;
 
   const animatedStyle = {
     transform: [{ scale: buttonSpring }],
   };
 
+  const lightFeedback = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.light);
+  };
+
   const handleOnPress = () => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    lightFeedback();
     return Animated.spring(buttonSpring, {
       toValue: 0.5,
       useNativeDriver: true,
@@ -23,7 +30,7 @@ const AnimatedButton = ({ index, values }) => {
   };
 
   const handlePressOut = () => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    lightFeedback();
     return Animated.spring(buttonSpring, {
       toValue: 1,
       friction: 5,
@@ -37,7 +44,7 @@ const AnimatedButton = ({ index, values }) => {
       onPressOut={handlePressOut}
     >
       <Animated.View key={index} style={[styles.item, animatedStyle]}>
-        <Image style={styles.image} source={values} />
+        {children}
       </Animated.View>
     </TouchableWithoutFeedback>
   );
@@ -47,10 +54,9 @@ const styles = StyleSheet.create({
   item: {
     justifyContent: "center",
     alignItems: "center",
-    margin: 5,
     width: 50,
     height: 50,
-    borderWidth: 4,
+    borderWidth: 2,
     borderColor: "white",
     backgroundColor: "white",
     borderRadius: 50,

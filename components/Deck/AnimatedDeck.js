@@ -15,18 +15,19 @@ const AnimatedDeck = ({ data }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const panResponder = PanResponder.create({
-    onMoveShouldSetPanResponder: (event, gesture) => !!handleDragRange(gesture),
-    onPanResponderMove: (event, gesture) => {
-      position.setValue({ x: gesture.dx, y: gesture.dy });
+    onMoveShouldSetPanResponder: (event, gestureState) =>
+      !!handleDragRange(gestureState),
+    onPanResponderMove: (event, gestureState) => {
+      position.setValue({ x: gestureState.dx, y: gestureState.dy });
       // console.log("Y ", position.y);
       // console.log("X ", position.x);
     },
-    onPanResponderRelease: (event, gesture) => {
-      if (gesture.dx > HORIZONTAL_SWIPE_THRESHOLD) {
+    onPanResponderRelease: (event, gestureState) => {
+      if (gestureState.dx > HORIZONTAL_SWIPE_THRESHOLD) {
         forceSwipe("right");
-      } else if (gesture.dx < -HORIZONTAL_SWIPE_THRESHOLD) {
+      } else if (gestureState.dx < -HORIZONTAL_SWIPE_THRESHOLD) {
         forceSwipe("left");
-      } else if (gesture.dy < VERTICALL_SWIPE_THRESHOLD) {
+      } else if (gestureState.dy < VERTICALL_SWIPE_THRESHOLD) {
         forceSwipe("vertical");
       } else {
         resetPosition();
@@ -68,6 +69,10 @@ const AnimatedDeck = ({ data }) => {
     }).start();
   };
 
+  const resetIndex = () => {
+    setCurrentIndex(0);
+  };
+
   const rotate = position.x.interpolate({
     inputRange: [-width * 1.9, 0, width * 1.9],
     outputRange: ["40deg", "0deg", "-40deg"],
@@ -79,7 +84,7 @@ const AnimatedDeck = ({ data }) => {
   });
   const opacity = Animated.add(position.x, position.y).interpolate({
     inputRange: [-width / 2.5, 0, width / 2.5],
-    outputRange: [1, 0.3, 1],
+    outputRange: [1, 0, 1],
     extrapolate: "clamp",
   });
 
@@ -88,9 +93,7 @@ const AnimatedDeck = ({ data }) => {
       <HelperView
         title="End of Deck"
         button="Reset List"
-        onPress={() => {
-          setCurrentIndex(0);
-        }}
+        onPress={resetIndex}
       />
     );
   }
@@ -102,7 +105,7 @@ const AnimatedDeck = ({ data }) => {
           item={item}
           topCard={true}
           position={position}
-          gestureHandler={panResponder.panHandlers}
+          gestureStateHandler={panResponder.panHandlers}
           rotate={rotate}
         />
       );

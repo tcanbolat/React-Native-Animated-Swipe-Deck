@@ -1,5 +1,6 @@
 import React from "react";
 import { StatusBar, StyleSheet, View, SafeAreaView } from "react-native";
+import ButtonConatiner from "./components/ButtonCotainer/ButtonContainer";
 import AnimatedDeck from "./components/Deck/AnimatedDeck";
 import DATA from "./data/dummy-data";
 
@@ -11,7 +12,9 @@ const App = () => {
       <View style={styles.body}>
         <AnimatedDeck data={DATA} />
       </View>
-      <View style={styles.footer}></View>
+      <View style={styles.footer}>
+        <ButtonConatiner />
+      </View>
     </SafeAreaView>
   );
 };
@@ -27,11 +30,10 @@ const styles = StyleSheet.create({
     // borderWidth: 4,
     // borderColor: "orange",
   },
-  body: { flex: 6 },
+  body: { flex: 6, zIndex: 1, elevation: 1 },
   footer: {
     flex: 1,
     // borderWidth: 4,
     // borderColor: "blue",
-    zIndex: -1,
   },
 });
