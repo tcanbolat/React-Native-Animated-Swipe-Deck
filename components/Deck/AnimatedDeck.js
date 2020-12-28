@@ -1,25 +1,16 @@
-import React, { useState, useRef, useEffect } from "react";
-import {
-  PanResponder,
-  StyleSheet,
-  Dimensions,
-  Animated,
-  View,
-  Platform,
-  Text,
-} from "react-native";
+import React, { useState, useRef } from "react";
+import { PanResponder, StyleSheet, Dimensions, Animated } from "react-native";
 import * as Haptics from "expo-haptics";
-import AnimatedScrollView from "../ScrollView/AnimatedScrollView";
-import AnimatedOverlay from "./AnimatedOverlay";
 import HelperView from "../HelperView";
 import handleDragRange from "../../helper/handleDragRange";
+import Card from "./DeckCard/Card";
 
 const { width, height } = Dimensions.get("window");
 const HORIZONTAL_SWIPE_THRESHOLD = 0.45 * width;
 const VERTICALL_SWIPE_THRESHOLD = 0.45 * -height;
 const SWIPE_OUT_DURATION = 125;
 
-const AnimatedDeck = ({ dogData }) => {
+const AnimatedDeck = ({ data }) => {
   const position = useRef(new Animated.ValueXY()).current;
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -58,7 +49,6 @@ const AnimatedDeck = ({ dogData }) => {
       duration: SWIPE_OUT_DURATION,
       useNativeDriver: false,
     }).start(() => {
-      console.log("FORCE SWIPE", currentIndex);
       onSwipeComplete(direction);
     });
   };
@@ -66,7 +56,7 @@ const AnimatedDeck = ({ dogData }) => {
   const onSwipeComplete = (direction) => {
     position.setValue({ x: 0, y: 0 });
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-    const item = dogData[currentIndex];
+    const item = data[currentIndex];
     setCurrentIndex((prevIndex) => prevIndex + 1);
     // direction === "right" ? onSwipeRight(item) : onSwipeLeft(item);
   };
@@ -93,48 +83,7 @@ const AnimatedDeck = ({ dogData }) => {
     extrapolate: "clamp",
   });
 
-  const topCardd = (item) => {
-    return (
-      <Animated.View
-        style={[
-          styles.deck,
-          {
-            ...position.getLayout(),
-            transform: [{ rotate: rotate }],
-          },
-          { elevation: 7 },
-          { borderWidth: 5 },
-        ]}
-        key={Platform.OS === "android" ? item.id : null}
-        {...panResponder.panHandlers}
-      >
-        <AnimatedOverlay text="NOPE" position="right" animation={position} />
-        <AnimatedOverlay text="LIKE" position="left" animation={position} />
-        <Text style={styles.cardTitle}>{item.breed}</Text>
-        <AnimatedScrollView imageData={item.images} />
-      </Animated.View>
-    );
-  };
-
-  const cardStack = (item, index) => (
-    <Animated.View
-      key={Platform.OS === "android" ? item.id : null}
-      style={[
-        styles.deck,
-        {
-          transform: [{ scale: scaleIn }],
-          opacity: opacity,
-        },
-        { elevation: 7 },
-        Platform.OS === "android" ? { position: "absolute" } : null,
-      ]}
-    >
-      <Text style={styles.cardTitle}>{item.breed}</Text>
-      <AnimatedScrollView imageData={item.images} />
-    </Animated.View>
-  );
-
-  if (currentIndex >= dogData.length) {
+  if (currentIndex >= data.length) {
     return (
       <HelperView
         title="End of Deck"
@@ -145,33 +94,31 @@ const AnimatedDeck = ({ dogData }) => {
       />
     );
   }
-
   return [
-    [dogData[currentIndex]].map((item) => {
-      return Platform.OS === "android" ? (
-        topCardd(item)
-      ) : (
-        <View style={styles.deckShadow} key={item.id}>
-          {topCardd(item)}
-        </View>
+    [data[currentIndex]].map((item) => {
+      return (
+        <Card
+          key={item.id}
+          item={item}
+          topCard={true}
+          position={position}
+          gestureHandler={panResponder.panHandlers}
+          rotate={rotate}
+        />
       );
     }),
-    currentIndex >= dogData.length - 1
+    currentIndex >= data.length - 1
       ? null
-      : [dogData[currentIndex + 1]].map((item) => {
-          if (Platform.OS === "android") {
-            return cardStack(item);
-          }
+      : [data[currentIndex + 1]].map((item) => {
           return (
-            <View
-              style={[
-                styles.deckShadow,
-                { position: "absolute", height: "100%", width: "100%" },
-              ]}
+            <Card
               key={item.id}
-            >
-              {cardStack(item)}
-            </View>
+              item={item}
+              topCard={false}
+              position={position}
+              scaleIn={scaleIn}
+              opacity={opacity}
+            />
           );
         }),
   ].reverse();
@@ -179,30 +126,4 @@ const AnimatedDeck = ({ dogData }) => {
 
 export default AnimatedDeck;
 
-const styles = StyleSheet.create({
-  deck: {
-    alignSelf: "center",
-    width: "95%",
-    height: "100%",
-    borderRadius: 7,
-    overflow: "hidden",
-  },
-  deckShadow: {
-    shadowOffset: { height: 3 },
-    shadowOpacity: 0.8,
-    shadowRadius: 3,
-  },
-  cardTitle: {
-    position: "absolute",
-    zIndex: 1,
-    bottom: 10,
-    left: 12,
-    fontSize: 25,
-    color: "white",
-    fontWeight: "bold",
-    textShadowOffset: { height: 2 },
-    textShadowColor: "black",
-    textShadowRadius: 3,
-    elevation: 3,
-  },
-});
+const styles = StyleSheet.create({});

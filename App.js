@@ -1,8 +1,6 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React from "react";
 import { StatusBar, StyleSheet, View, SafeAreaView } from "react-native";
-import AnimatedButton from "./components/Button/AnimatedButton";
 import AnimatedDeck from "./components/Deck/AnimatedDeck";
-import HelperView from "./components/HelperView";
 import DATA from "./data/dummy-data";
 
 const App = () => {
@@ -11,7 +9,7 @@ const App = () => {
       <StatusBar hidden />
       <View style={styles.header}></View>
       <View style={styles.body}>
-        <AnimatedDeck dogData={DATA} />
+        <AnimatedDeck data={DATA} />
       </View>
       <View style={styles.footer}></View>
     </SafeAreaView>
@@ -26,14 +24,14 @@ const styles = StyleSheet.create({
   },
   header: {
     flex: 1,
-    borderWidth: 4,
-    borderColor: "orange",
+    // borderWidth: 4,
+    // borderColor: "orange",
   },
   body: { flex: 6 },
   footer: {
     flex: 1,
-    borderWidth: 4,
-    borderColor: "blue",
+    // borderWidth: 4,
+    // borderColor: "blue",
     zIndex: -1,
   },
 });

@@ -12,9 +12,9 @@ const AnimatedIndicator = ({ indicatorCount, scrollPosition, width }) => {
             width * (imageIndex + 1),
           ],
           outputRange: [
-            "rgba(192,192,192, 0.7)",
+            "rgba(192,192,192, 0.4)",
             "white",
-            "rgba(192,192,192, 0.7)",
+            "rgba(192,192,192, 0.4)",
           ],
           extrapolate: "clamp",
         });
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     position: "absolute",
-    top: 0.3,
+    top: 5,
     alignSelf: "center",
     width: "98%",
   },

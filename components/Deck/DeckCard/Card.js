@@ -1,72 +1,87 @@
 import React from "react";
-import { Animated, StyleSheet, View } from "react-native";
+import { Animated, Platform, StyleSheet, Text, View } from "react-native";
+import AnimatedOverlay from "../AnimatedOverlay";
+import AnimatedScrollView from "../../ScrollView/AnimatedScrollView";
 
-const Card = ({ item, index }) => {
-    const deckStyle = [
-    styles.deck,
-    index === currentIndex
+const Card = ({
+  item,
+  topCard,
+  gestureHandler,
+  rotate,
+  scaleIn,
+  opacity,
+  position,
+}) => {
+
+  const cardStyle = [
+    styles.card,
+    topCard
       ? {
           ...position.getLayout(),
           transform: [{ rotate: rotate }],
-          // elevation: 7,
         }
-      : index === currentIndex + 1
-      ? {
-          transform: [{ scale: scaleIn }],
+      : {
+          transform: [{ scale: scaleIn }, { perspective: 1000 }],
           opacity: opacity,
-          // elevation: 7,
-        }
-      : { display: "none" },
-    Platform.OS === "android" && index === currentIndex + 1
-      ? { position: "absolute" }
-      : null,
+        },
   ];
 
-  const topCard = (item) => {
-    return (
+  return (
+    <View
+      style={[
+        styles.cardShadow,
+        !topCard && { position: "absolute", height: "100%", width: "100%" },
+      ]}
+    >
       <Animated.View
-        style={[
-          styles.deck,
-          {
-            ...position.getLayout(),
-            transform: [{ rotate: rotate }],
-          },
-          { elevation: 7 },
-        ]}
+        style={cardStyle}
         key={Platform.OS === "android" ? item.id : null}
-        {...panResponder.panHandlers}
+        {...(topCard && gestureHandler)}
       >
-        <AnimatedOverlay text="NOPE" position="right" animation={position} />
-        <AnimatedOverlay text="LIKE" position="left" animation={position} />
+        {topCard && (
+          <>
+            <AnimatedOverlay
+              text="NOPE"
+              position="right"
+              animation={position}
+            />
+            <AnimatedOverlay text="LIKE" position="left" animation={position} />
+          </>
+        )}
         <Text style={styles.cardTitle}>{item.breed}</Text>
         <AnimatedScrollView imageData={item.images} />
       </Animated.View>
-    );
-  };
-
-  const cardStack = (item, index) => (
-    <Animated.View
-      key={Platform.OS === "android" ? item.id : null}
-      style={[
-        styles.deck,
-        {
-          transform: [{ scale: scaleIn }],
-          opacity: opacity,
-        },
-        index === currentIndex + 1 ? { elevation: 7 } : { display: "none" },
-        Platform.OS === "android" ? { position: "absolute" } : null,
-      ]}
-    >
-      <Text style={styles.cardTitle}>{item.breed}</Text>
-      <AnimatedScrollView imageData={item.images} />
-    </Animated.View>
+    </View>
   );
-
-  return <Animated.View>
-
-  </Animated.View>;
 };
 
 export default Card;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  card: {
+    alignSelf: "center",
+    width: "95%",
+    height: "100%",
+    borderRadius: 7,
+    overflow: "hidden",
+    elevation: 7,
+  },
+  cardShadow: {
+    shadowOffset: { height: 3 },
+    shadowOpacity: 0.8,
+    shadowRadius: 3,
+  },
+  cardTitle: {
+    position: "absolute",
+    zIndex: 1,
+    bottom: 10,
+    left: 12,
+    fontSize: 25,
+    color: "white",
+    fontWeight: "bold",
+    textShadowOffset: { height: 2 },
+    textShadowColor: "black",
+    textShadowRadius: 3,
+    elevation: 3,
+  },
+});
