@@ -4,9 +4,9 @@ import Svg, { Path, G, Defs, LinearGradient, Stop } from "react-native-svg";
 
 // Star by Handicon from thenounproject.com
 
-const Star = () => {
+const Star = ({  }) => {
   return (
-    <View style={{ paddingTop: 7 }}>
+    <View style={[{ paddingTop: 7 }]}>
       <Svg viewBox="0 0 6.3499999 7.93750025" width="45pt" height="45pt">
         <Defs>
           <LinearGradient id="grad" x1="0" y1="0" x2="0" y2="0.7">

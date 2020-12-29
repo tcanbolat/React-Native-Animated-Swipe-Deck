@@ -45,6 +45,11 @@ const Card = ({
               animation={position}
             />
             <AnimatedOverlay text="LIKE" position="left" animation={position} />
+            <AnimatedOverlay
+              text="SUPER LIKE"
+              position="bottom"
+              animation={position}
+            />
           </>
         )}
         <Text style={styles.cardTitle}>{item.breed}</Text>

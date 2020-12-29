@@ -12,9 +12,9 @@ const AnimatedIndicator = ({ indicatorCount, scrollPosition, width }) => {
             width * (imageIndex + 1),
           ],
           outputRange: [
-            "rgba(192,192,192, 0.4)",
+            "rgba(192,192,192, 0.6)",
             "white",
-            "rgba(192,192,192, 0.4)",
+            "rgba(192,192,192, 0.6)",
           ],
           extrapolate: "clamp",
         });
@@ -23,7 +23,7 @@ const AnimatedIndicator = ({ indicatorCount, scrollPosition, width }) => {
             key={imageIndex}
             style={[
               styles.indicator,
-              { width: (width * 0.93) / indicatorCount.length },
+              { width: (width * 0.91) / indicatorCount.length },
               { backgroundColor: backgroundColor },
             ]}
           />

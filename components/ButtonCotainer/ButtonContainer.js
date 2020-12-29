@@ -1,20 +1,20 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import AnimatedButton from "../Button/AnimatedButton";
-import Heart from "../Button/SVGComponents/Heart";
-import Nope from "../Button/SVGComponents/Nope";
-import Star from "../Button/SVGComponents/Star";
+import AnimatedButton from "./Button/AnimatedButton";
+import Heart from "./Button/SVGComponents/Heart";
+import Nope from "./Button/SVGComponents/Nope";
+import Star from "./Button/SVGComponents/Star";
 
-const ButtonConatiner = () => {
+const ButtonConatiner = ({ swipe }) => {
   return (
     <View style={styles.container}>
-      <AnimatedButton>
+      <AnimatedButton swipe={() => swipe("left", true)}>
         <Nope />
       </AnimatedButton>
-      <AnimatedButton>
+      <AnimatedButton swipe={() => swipe("vertical", true)} type="star">
         <Star />
       </AnimatedButton>
-      <AnimatedButton>
+      <AnimatedButton swipe={() => swipe("right", true)}>
         <Heart />
       </AnimatedButton>
     </View>
@@ -29,6 +29,5 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignItems: "center",
-    // borderWidth: 4,
   },
 });
