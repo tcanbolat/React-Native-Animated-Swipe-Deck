@@ -2,19 +2,6 @@
 
 
    - [App.js](App.js)
-   - [README.md](README.md)
-   - [app.json](app.json)
-   - __assets__
-     - [adaptive\-icon.png](assets/adaptive-icon.png)
-     - [favicon.png](assets/favicon.png)
-     - [icon.png](assets/icon.png)
-     - __icons__
-       - __svg__
-         - [close.svg](assets/icons/svg/close.svg)
-         - [like.svg](assets/icons/svg/like.svg)
-         - [star.svg](assets/icons/svg/star.svg)
-     - [splash.png](assets/splash.png)
-   - [babel.config.js](babel.config.js)
    - __components__
      - __ButtonCotainer__
        - __Button__
@@ -44,5 +31,4 @@
    - [node\_modules](node_modules)
    - [package\-lock.json](package-lock.json)
    - [package.json](package.json)
-   - __store__
 
