@@ -30,3 +30,10 @@
      - [Dog.js](models/Dog.js)
    - [package.json](package.json)
 
+# Online Demo
+
+Click the Link and choose IOS or ANDROID on the emulator screen.
+** Warning ** emulator might might be slow with the animations. </br>
+If you have "Expo" installed on your mobile device you can demo it by clicking on My Device tab for smoother animations.
+
+https://snack.expo.io/@git/github.com/tcanbolat/React-Native-Animated-Swipe-Deck@main
