@@ -49,7 +49,7 @@ const AnimatedDeck = ({ data, currentIndex, updateIndex, position, swipe }) => {
   });
   const scaleIn = Animated.add(position.x, position.y).interpolate({
     inputRange: [-width / 2, 0.6, width / 2],
-    outputRange: [1, 0.81, 1],
+    outputRange: [1, 0.87, 1],
     extrapolate: "clamp",
   });
   const opacity = Animated.add(position.x, position.y).interpolate({

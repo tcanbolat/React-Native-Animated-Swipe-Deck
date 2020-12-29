@@ -37,6 +37,8 @@ const App = () => {
         y: direction === "vertical" ? -height - 100 : 0,
       },
       duration: isButtonSwipe ? SWIPE_OUT_DURATION + 250 : SWIPE_OUT_DURATION,
+      restSpeedThreshold: 5000,
+      restDisplacementThreshold: 5000,
       useNativeDriver: false,
     }).start(() => {
       updateIndex();

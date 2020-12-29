@@ -1,17 +1,16 @@
-import React, { useRef } from "react";
-import { TouchableWithoutFeedback, Animated, StyleSheet } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import {
+  TouchableWithoutFeedback,
+  Animated,
+  StyleSheet,
+  Easing,
+} from "react-native";
 import * as Haptics from "expo-haptics";
 
 const AnimatedButton = ({ children, swipe, type }) => {
   const buttonSpring = useRef(new Animated.Value(1)).current;
-  let buttonRotation = 0;
-  type === "star"
-    ? (buttonRotation = useRef(new Animated.Value(0)).current)
-    : null;
-
-  const animationStyle = {
-    transform: [{ scale: buttonSpring }, { rotateX: buttonRotation }],
-  };
+  const buttonRotation = new Animated.Value(0);
+  const buttonElevation = new Animated.Value(3); // for android 
 
   const lightFeedback = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.light);
@@ -32,25 +31,33 @@ const AnimatedButton = ({ children, swipe, type }) => {
       toValue: 1,
       friction: 5,
       useNativeDriver: true,
-      restSpeedThreshold: 1000,
-      restDisplacementThreshold: 100,
-    }).start(() => {
-      type === "star" ? rotate() : null;
-    });
+    }).start(type === "star" ? rotate() : null);
   };
 
   const rotate = () => {
-    Animated.spring(buttonRotation, {
-      toValue: 5,
-      useNativeDriver: true,
-      restSpeedThreshold: 1000,
-      restDisplacementThreshold: 100,
-    }).start(() => {
-      Animated.spring(buttonRotation, {
+    Animated.parallel([
+      Animated.timing(buttonElevation, {
         toValue: 0,
+        duration: 0,
         useNativeDriver: true,
-      }).start();
-    });
+      }),
+      Animated.timing(buttonRotation, {
+        toValue: 2,
+        duration: 800,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  };
+
+  const spin = buttonRotation.interpolate({
+    inputRange: [0, 1],
+    outputRange: ["0deg", "360deg"],
+  });
+
+  const animationStyle = {
+    transform: [{ scale: buttonSpring }, { rotateX: spin }],
+    elevation: type == "star" ? buttonElevation : 3,
   };
 
   return (
@@ -77,7 +84,6 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     shadowOffset: { width: -1, height: 1 },
     shadowOpacity: 0.3,
-    elevation: 3, // for android so that shadows appear
   },
   image: {
     width: 15,
