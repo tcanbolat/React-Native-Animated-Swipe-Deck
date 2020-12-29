@@ -1,2 +1,48 @@
-# Animated-Tinder-Swipe-Deck-React-Native
-A tinder swipe deck clone using React Native Animations
+# (React Native) Animated Swipe Deck
+
+
+   - [App.js](App.js)
+   - [README.md](README.md)
+   - [app.json](app.json)
+   - __assets__
+     - [adaptive\-icon.png](assets/adaptive-icon.png)
+     - [favicon.png](assets/favicon.png)
+     - [icon.png](assets/icon.png)
+     - __icons__
+       - __svg__
+         - [close.svg](assets/icons/svg/close.svg)
+         - [like.svg](assets/icons/svg/like.svg)
+         - [star.svg](assets/icons/svg/star.svg)
+     - [splash.png](assets/splash.png)
+   - [babel.config.js](babel.config.js)
+   - __components__
+     - __ButtonCotainer__
+       - __Button__
+         - [AnimatedButton.js](components/ButtonCotainer/Button/AnimatedButton.js)
+         - __SVGComponents__
+           - [Heart.js](components/ButtonCotainer/Button/SVGComponents/Heart.js)
+           - [Nope.js](components/ButtonCotainer/Button/SVGComponents/Nope.js)
+           - [Star.js](components/ButtonCotainer/Button/SVGComponents/Star.js)
+       - [ButtonContainer.js](components/ButtonCotainer/ButtonContainer.js)
+     - __Deck__
+       - [AnimatedDeck.js](components/Deck/AnimatedDeck.js)
+       - __DeckCard__
+         - [AnimatedOverlay.js](components/Deck/DeckCard/AnimatedOverlay.js)
+         - [Card.js](components/Deck/DeckCard/Card.js)
+     - [HelperView.js](components/HelperView.js)
+     - __ScrollView__
+       - [AnimatedIndicator.js](components/ScrollView/AnimatedIndicator.js)
+       - [AnimatedScrollView.js](components/ScrollView/AnimatedScrollView.js)
+       - [ScrollButtonOverlay.js](components/ScrollView/ScrollButtonOverlay.js)
+   - __data__
+     - [dummy\-data.js](data/dummy-data.js)
+   - __helper__
+     - [handleDragRange.js](helper/handleDragRange.js)
+   - [list.md](list.md)
+   - __models__
+     - [Dog.js](models/Dog.js)
+   - [node\_modules](node_modules)
+   - [package\-lock.json](package-lock.json)
+   - [package.json](package.json)
+   - __store__
+
