@@ -1,5 +1,6 @@
 # (React Native) Animated Swipe Deck
 
+# Directory
 
    - [App.js](App.js)
    - __components__
@@ -16,19 +17,16 @@
        - __DeckCard__
          - [AnimatedOverlay.js](components/Deck/DeckCard/AnimatedOverlay.js)
          - [Card.js](components/Deck/DeckCard/Card.js)
-     - [HelperView.js](components/HelperView.js)
      - __ScrollView__
        - [AnimatedIndicator.js](components/ScrollView/AnimatedIndicator.js)
        - [AnimatedScrollView.js](components/ScrollView/AnimatedScrollView.js)
        - [ScrollButtonOverlay.js](components/ScrollView/ScrollButtonOverlay.js)
+     - [HelperView.js](components/HelperView.js)
    - __data__
      - [dummy\-data.js](data/dummy-data.js)
    - __helper__
      - [handleDragRange.js](helper/handleDragRange.js)
-   - [list.md](list.md)
    - __models__
      - [Dog.js](models/Dog.js)
-   - [node\_modules](node_modules)
-   - [package\-lock.json](package-lock.json)
    - [package.json](package.json)
 
